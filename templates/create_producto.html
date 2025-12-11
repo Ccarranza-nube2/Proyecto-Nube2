@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title%} Agregar Producto - Inventario Abarrotes{% endblock %}
+{% block content%}
+<div class="columns">
+    <div class="column is-offset-2 is-8">
+        <div class="card">
+            <div class="card-header">
+                <p class="card-header-title has-text-white">
+                    <i class="fas fa-plus-circle"></i>&nbsp; Agregar Nuevo Producto
+                </p>
+            </div>
+            <div class="card-content">
+                <div class="content">
+                    <form action="{{ url_for('crear_producto') }}" method="post">
+                        
+                        <!-- Nombre del Producto -->
+                        <div class="field">
+                            <label class="label">Nombre del Producto:</label>
+                            <div class="control">
+                                <input class="input" type="text" name="nombre" required placeholder="Ej: Arroz, Leche, Jabón">
+                            </div>
+                        </div>
+
+                        <!-- Descripción -->
+                        <div class="field">
+                            <label class="label">Descripción (opcional):</label>
+                            <div class="control">
+                                <textarea class="textarea" name="descripcion" placeholder="Descripción del producto" rows="2"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="columns">
+                            <!-- Tipo de Producto -->
+                            <div class="column">
+                                <div class="field">
+                                    <label class="label">Tipo de Producto:</label>
+                                    <div class="control">
+                                        <div class="select is-fullwidth">
+                                            <select name="tipo" required>
+                                                <option value="" disabled selected>Seleccionar tipo</option>
+                                                <option value="Alimentos">Alimentos</option>
+                                                <option value="Bebidas">Bebidas</option>
+                                                <option value="Limpieza">Limpieza</option>
+                                                <option value="Cuidado Personal">Cuidado Personal</option>
+                                                <option value="Otros">Otros</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Cantidad -->
+                            <div class="column">
+                                <div class="field">
+                                    <label class="label">Cantidad:</label>
+                                    <div class="control">
+                                        <input class="input" type="number" name="cantidad" value="1" min="0" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Precio -->
+                        <div class="field">
+                            <label class="label">Precio:</label>
+                            <div class="control">
+                                <input class="input" type="number" step="0.01" name="precio" min="0" required placeholder="0.00">
+                            </div>
+                        </div>
+
+                        <!-- Botones -->
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button class="button is-success" type="submit">
+                                    <i class="fas fa-save"></i>&nbsp; Guardar Producto
+                                </button>
+                            </div>
+                            <div class="control">
+                                <a class="button is-danger" href="{{ url_for('index') }}">
+                                    <i class="fas fa-times"></i>&nbsp; Cancelar
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock%}
