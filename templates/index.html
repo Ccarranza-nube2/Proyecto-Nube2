@@ -49,10 +49,20 @@
                                     <small>{{ producto.descripcion[:30] if producto.descripcion else 'Sin descripción' }}{% if producto.descripcion and producto.descripcion|length > 30 %}...{% endif %}</small>
                                 </td>
                                 <td>
-                                    <!-- Botón Editar -->
-                                    <a href="{{ url_for('editar_producto_form', id=producto.id) }}" class="button is-warning is-small">
-                                        <i class="fas fa-edit"></i>
+                                    <div class="buttons are-small">
+                                        <!-- Botón Editar -->
+                                        <a href="{{ url_for('editar_producto_form', id=producto.id) }}" class="button is-warning" title="Editar">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        
+                                        <!-- Botón Eliminar con formulario -->
+                                    <a href="{{ url_for('eliminar_producto', id=producto.id) }}" 
+                                            class="button is-danger is-small" 
+                                            onclick="return confirm('¿Estás seguro de que quieres eliminar este producto?');"
+                                            title="Eliminar">
+                                        <i class="fas fa-trash"></i>
                                     </a>
+                                    </div>
                                 </td>
                             </tr>
                             {% endfor %}

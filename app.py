@@ -103,5 +103,26 @@ def editar_producto(id):
         db.session.rollback()
         return f"Error al editar producto: {e}", 500
 
+# Ruta para eliminar un producto (versión simple con GET)
+@app.route('/producto/eliminar/<int:id>', methods=['GET'])
+def eliminar_producto(id):
+    try:
+        # Buscar el producto por ID
+        producto = Producto.query.get_or_404(id)
+        nombre_producto = producto.nombre
+        
+        # Eliminar el producto
+        db.session.delete(producto)
+        db.session.commit()
+        
+        print(f"Producto '{nombre_producto}' eliminado exitosamente")
+        return redirect(url_for('index'))
+        
+    except Exception as e:
+        print(f"Error al eliminar producto: {e}")
+        db.session.rollback()
+        return f"Error al eliminar producto: {e}", 500
+
+
 if __name__ == '__main__':
     app.run(debug=True)
