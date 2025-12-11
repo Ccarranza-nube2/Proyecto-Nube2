@@ -10,7 +10,6 @@
             </a>
         </div>
         
-        
         {% if productos %}
         <div class="card">
             <div class="card-header">
@@ -28,6 +27,7 @@
                                 <th>Cantidad</th>
                                 <th>Precio</th>
                                 <th>Descripción</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,6 +47,12 @@
                                 </td>
                                 <td>
                                     <small>{{ producto.descripcion[:30] if producto.descripcion else 'Sin descripción' }}{% if producto.descripcion and producto.descripcion|length > 30 %}...{% endif %}</small>
+                                </td>
+                                <td>
+                                    <!-- Botón Editar -->
+                                    <a href="{{ url_for('editar_producto_form', id=producto.id) }}" class="button is-warning is-small">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
                                 </td>
                             </tr>
                             {% endfor %}

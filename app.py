@@ -72,5 +72,36 @@ def crear_producto():
         db.session.rollback()
         return f"Error al crear producto: {e}", 500
 
+# Ruta para mostrar formulario de edición
+@app.route('/producto/editar/<int:id>', methods=['GET'])
+def editar_producto_form(id):
+    # Buscar el producto por ID
+    producto = Producto.query.get_or_404(id)
+    return render_template('edit_producto.html', producto=producto)
+
+# Ruta para procesar la edición del producto
+@app.route('/producto/editar/<int:id>', methods=['POST'])
+def editar_producto(id):
+    try:
+        # Buscar el producto por ID
+        producto = Producto.query.get_or_404(id)
+        
+        # Actualizar los datos del producto
+        producto.nombre = request.form['nombre']
+        producto.descripcion = request.form.get('descripcion', '')
+        producto.tipo = request.form['tipo']
+        producto.cantidad = int(request.form['cantidad'])
+        producto.precio = float(request.form['precio'])
+        
+        db.session.commit()
+        
+        print(f"Producto '{producto.nombre}' actualizado exitosamente")
+        return redirect(url_for('index'))
+        
+    except Exception as e:
+        print(f"Error al editar producto: {e}")
+        db.session.rollback()
+        return f"Error al editar producto: {e}", 500
+
 if __name__ == '__main__':
     app.run(debug=True)
