@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title%} Inventario Abarrotes{% endblock %}
+{% block content%}
+<div class="columns">
+    <div class="column is-offset-1 is-10">
+        <!-- Botón para agregar nuevo producto -->
+        <div class="has-text-right mb-5">
+            <a href="{{ url_for('nuevo_producto_form') }}" class="button is-success is-medium">
+                <i class="fas fa-plus"></i> &nbsp; Agregar Producto
+            </a>
+        </div>
+        
+        
+        {% if productos %}
+        <div class="card">
+            <div class="card-header">
+                <p class="card-header-title has-text-white">
+                    <i class="fas fa-boxes"></i>&nbsp; Inventario de Productos
+                </p>
+            </div>
+            <div class="card-content">
+                <div class="table-container">
+                    <table class="table is-fullwidth is-striped is-hoverable">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Tipo</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for producto in productos %}
+                            <tr>
+                                <td>
+                                    <strong>{{ producto.nombre }}</strong>
+                                </td>
+                                <td>
+                                    <span class="tag is-info">{{ producto.tipo }}</span>
+                                </td>
+                                <td>
+                                    <span class="tag is-dark">{{ producto.cantidad }}</span>
+                                </td>
+                                <td>
+                                    <span class="tag is-success">${{ "%.2f"|format(producto.precio) }}</span>
+                                </td>
+                                <td>
+                                    <small>{{ producto.descripcion[:30] if producto.descripcion else 'Sin descripción' }}{% if producto.descripcion and producto.descripcion|length > 30 %}...{% endif %}</small>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% else %}
+            <div class="has-text-centered py-6">
+                <i class="fas fa-box fa-3x has-text-grey-light mb-4"></i>
+                <p class="has-text-grey is-size-5">No hay productos en el inventario</p>
+                <p class="has-text-grey mb-4">Comienza agregando tu primer producto</p>
+                <a class="button is-primary mt-4" href="{{ url_for('nuevo_producto_form') }}">
+                    <i class="fas fa-plus"></i>&nbsp; Agregar primer producto
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock%}
