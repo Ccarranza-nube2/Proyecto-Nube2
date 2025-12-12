@@ -3,10 +3,20 @@
 {% block content%}
 <div class="columns">
     <div class="column is-offset-2 is-8">
+        <!-- Header con diseño mejorado -->
+        <div class="mb-4">
+            <a href="{{ url_for('index') }}" class="button is-light">
+                <span class="icon">
+                    <i class="fas fa-arrow-left"></i>
+                </span>
+                <span>Volver al inventario</span>
+            </a>
+        </div>
+        
         <div class="card">
             <div class="card-header">
-                <p class="card-header-title has-text-white">
-                    <i class="fas fa-plus-circle"></i>&nbsp; Crear Nuevo Producto
+                <p class="card-header-title">
+                    <i class="fas fa-plus-circle"></i> Agregar Nuevo Producto
                 </p>
             </div>
             <div class="card-content">
@@ -15,17 +25,27 @@
                         
                         <!-- Nombre del Producto -->
                         <div class="field">
-                            <label class="label">Nombre del Producto:</label>
-                            <div class="control">
-                                <input class="input" type="text" name="nombre" required placeholder="Ej: Arroz, Leche, Jabón">
+                            <label class="label">
+                                <i class="fas fa-tag" style="color: var(--accent-color);"></i>
+                                Nombre del Producto
+                            </label>
+                            <div class="control has-icons-left">
+                                <input class="input" type="text" name="nombre" required placeholder="Ej: Arroz 1kg, Leche Lala, Jabón Zote">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-shopping-basket"></i>
+                                </span>
                             </div>
                         </div>
 
                         <!-- Descripción -->
                         <div class="field">
-                            <label class="label">Descripción (opcional):</label>
+                            <label class="label">
+                                <i class="fas fa-align-left" style="color: var(--accent-color);"></i>
+                                Descripción
+                                <span class="tag is-light is-small ml-2">Opcional</span>
+                            </label>
                             <div class="control">
-                                <textarea class="textarea" name="descripcion" placeholder="Descripción del producto" rows="2"></textarea>
+                                <textarea class="textarea" name="descripcion" placeholder="Descripción detallada del producto..." rows="3"></textarea>
                             </div>
                         </div>
 
@@ -33,18 +53,24 @@
                             <!-- Tipo de Producto -->
                             <div class="column">
                                 <div class="field">
-                                    <label class="label">Tipo de Producto:</label>
-                                    <div class="control">
+                                    <label class="label">
+                                        <i class="fas fa-layer-group" style="color: var(--accent-color);"></i>
+                                        Categoría
+                                    </label>
+                                    <div class="control has-icons-left">
                                         <div class="select is-fullwidth">
                                             <select name="tipo" required>
-                                                <option value="" disabled selected>Seleccionar tipo</option>
-                                                <option value="Alimentos">Alimentos</option>
-                                                <option value="Bebidas">Bebidas</option>
-                                                <option value="Limpieza">Limpieza</option>
-                                                <option value="Cuidado Personal">Cuidado Personal</option>
-                                                <option value="Otros">Otros</option>
+                                                <option value="" disabled selected>Seleccionar categoría</option>
+                                                <option value="Alimentos">🍞 Alimentos</option>
+                                                <option value="Bebidas">🥤 Bebidas</option>
+                                                <option value="Limpieza">🧹 Limpieza</option>
+                                                <option value="Cuidado Personal">🧴 Cuidado Personal</option>
+                                                <option value="Otros">📦 Otros</option>
                                             </select>
                                         </div>
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-list"></i>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -52,9 +78,15 @@
                             <!-- Cantidad -->
                             <div class="column">
                                 <div class="field">
-                                    <label class="label">Cantidad:</label>
-                                    <div class="control">
+                                    <label class="label">
+                                        <i class="fas fa-cubes" style="color: var(--accent-color);"></i>
+                                        Cantidad en Stock
+                                    </label>
+                                    <div class="control has-icons-left">
                                         <input class="input" type="number" name="cantidad" value="1" min="0" required>
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-box"></i>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -62,23 +94,38 @@
 
                         <!-- Precio -->
                         <div class="field">
-                            <label class="label">Precio:</label>
-                            <div class="control">
+                            <label class="label">
+                                <i class="fas fa-dollar-sign" style="color: var(--accent-color);"></i>
+                                Precio Unitario
+                            </label>
+                            <div class="control has-icons-left">
                                 <input class="input" type="number" step="0.01" name="precio" min="0" required placeholder="0.00">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </span>
                             </div>
+                            <p class="help">Ingresa el precio en pesos mexicanos</p>
                         </div>
 
+                        <hr>
+
                         <!-- Botones -->
-                        <div class="field is-grouped">
+                        <div class="field is-grouped is-grouped-right">
                             <div class="control">
-                                <button class="button is-success" type="submit">
-                                    <i class="fas fa-save"></i>&nbsp; Guardar Producto
-                                </button>
+                                <a class="button is-light is-medium" href="{{ url_for('index') }}">
+                                    <span class="icon">
+                                        <i class="fas fa-times"></i>
+                                    </span>
+                                    <span>Cancelar</span>
+                                </a>
                             </div>
                             <div class="control">
-                                <a class="button is-danger" href="{{ url_for('index') }}">
-                                    <i class="fas fa-times"></i>&nbsp; Cancelar
-                                </a>
+                                <button class="button is-success is-medium" type="submit">
+                                    <span class="icon">
+                                        <i class="fas fa-save"></i>
+                                    </span>
+                                    <span>Guardar Producto</span>
+                                </button>
                             </div>
                         </div>
                     </form>
